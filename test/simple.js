@@ -9,7 +9,7 @@ function assertionsFor(intervals) {
   return function() {
     for(var name of intervals) {
       result = parse(name).simple;
-      expected = teoria.interval(name).simple().toString();
+      expected = teoria.interval(name).simple().number();
       assert(result == expected,
         "simple of " + name + " should " + expected + " but was " + result);
     }

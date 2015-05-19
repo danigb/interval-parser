@@ -32,13 +32,13 @@ The returned object has the following attribues:
 - __octaves__: number of octaves
 - __semitones___: number of semitones. Can be positive or negative.
 - __type__: type of the interval. Can be "perfect" or "minor".
-- __simple__: the simple interval name:
+- __simple__: the number of the simplified interval
 
 ```js
-parse('M9').simple;    // => "M2"
-parse('A13').simple;   // => "A6"
-parse('P5').simple;    // => "P5"
-parse('P-15').simple;  // => "P-8"
+parse('M9').simple;    // => 2
+parse('A13').simple;   // => 6
+parse('P5').simple;    // => 5
+parse('P-15').simple;  // => 8
 ```
 
 ## License

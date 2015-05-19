@@ -1,3 +1,4 @@
+'use strict';
 /*
  * parseInterval
  *
@@ -6,24 +7,33 @@
  * - quality
  * - direction
  * - number
+ * - simple
  * - type
  * - semitones
  * - octaves
- * - simple
  */
 var INTERVAL = /^([dmPMA])(-{0,1})(\d{1,2})$/;
 function parseInterval(interval) {
+  var obj = null;
   if(isIntervalObj(interval)) {
-    return validate(interval);
+    obj = prepare(interval);
   } else if (typeof(interval) == 'string') {
     var m = INTERVAL.exec(interval.trim());
     if(m) {
-      return validate({name: interval, quality: m[1],
+      obj = prepare({name: interval, quality: m[1],
         direction: m[2], number: +m[3]});
     }
   }
-  return null;
+  return validate(interval, obj);
 }
+
+function validate(name, obj) {
+  if(obj == null) {
+    throw Error("Interval not valid: " + name);
+  }
+  return obj;
+}
+
 
 function isIntervalObj(interval) {
   return typeof(interval.name) !== 'undefined'
@@ -32,16 +42,15 @@ function isIntervalObj(interval) {
     && typeof(interval.number) !== 'undefined';
 }
 
-function validate(i) {
+function prepare(i) {
   i.octaves = i.octaves || octaves(i);
-  i.simpleNum = i.simpleNum || simpleNum(i);
-  i.simple = i.quality + i.direction + i.simpleNum;
+  i.simple = i.simple || simpleNumber(i);
   i.type = i.type || type(i);
   i.semitones = i.semitones || semitones(i);
   return i;
 }
 
-function simpleNum(i) {
+function simpleNumber(i) {
   if(i.number > 8) {
     var num = (i.number - 1) % 7 + 1;
     if (num == 1) num = 8;
@@ -64,7 +73,7 @@ function octaves(i) {
  };
 
 function semitones(i) {
-  var semi = SEMITONES["d" + i.simpleNum];
+  var semi = SEMITONES["d" + i.simple];
   var extra = EXTRA[i.type][i.quality];
   var oct = i.octaves * 12;
   var dir = i.direction === '-1' ? -1 : 1;
@@ -73,7 +82,7 @@ function semitones(i) {
 
 
 function type(i) {
-  var num = i.simpleNum;
+  var num = i.simple;
   if(num === 1 || num === 4 || num === 5 || num === 8) {
     return "perfect";
   } else {
