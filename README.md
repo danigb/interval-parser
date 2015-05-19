@@ -13,17 +13,19 @@ If you want to transpose notes see [note-pitch](http://github.com/danigb/note-pi
 
 ## Usage
 
-With node: `npm install --save intervalo`. The dist/intervalo.min.js is ready to use in web browsers (exports `intervalo` namespace).
+With node: `npm install --save intervalo`.
 
 #### parse(interval)
 
-Parse the given interval. Can be in two forms: as string ("m2", "P5", "d-7") or as an array `["m", "", 2]`, `["d", "-", 7]` (see toArray method).
+Parse the given interval and returns an object with information about
+the interval. The interval can be a simple string ("M2", "P-8", "d3") or an
+object with { quality, direction, number }. 
 
 Currently, no validation is performed ("P2" would be parsed without errors).
 
 The returned object has the following attribues:
 
-- __quality__: hhe quiality of the interval as String (only one letter)
+- __quality__: the quiality of the interval as String (only one letter)
 - __direction__: the direction of the interval: "" (up) or "-" (down)
 - __number__: the number of the interval (always positive)
 - __octaves__: number of octaves
