@@ -1,18 +1,19 @@
 /*
  * parseInterval
  *
- * parse a string or an array representing an interval.
- * Return an array representing the interval in the following
- * form: [qualityType, direction, number]
- *
- * @param {Boolean} trust - skip interval validation
+ * Parse a interval and returns an object with:
+ * - name
+ * - quality
+ * - direction
+ * - number
+ * - type
+ * - semitones
+ * - octaves
+ * - simple
  */
 var INTERVAL = /^([dmPMA])(-{0,1})(\d{1,2})$/;
 function parseInterval(interval) {
-  if(typeof(interval.name) !== 'undefined'
-    && typeof(interval.quality) !== 'undefined'
-    && typeof(interval.direction) !== 'undefined'
-    && typeof(interval.number) !== 'undefined') {
+  if(isIntervalObj(interval)) {
     return validate(interval);
   } else if (typeof(interval) == 'string') {
     var m = INTERVAL.exec(interval.trim());
@@ -22,6 +23,13 @@ function parseInterval(interval) {
     }
   }
   return null;
+}
+
+function isIntervalObj(interval) {
+  return typeof(interval.name) !== 'undefined'
+    && typeof(interval.quality) !== 'undefined'
+    && typeof(interval.direction) !== 'undefined'
+    && typeof(interval.number) !== 'undefined';
 }
 
 function validate(i) {
