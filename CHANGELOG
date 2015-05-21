@@ -1,3 +1,7 @@
+[0.7.0]
+- Direction is now 1 or -1
+- Some direction edge cases
+
 [0.6.0]
 - interval.simple is just the simplified number
 - Fail fast: parser now throws exception on parse error

@@ -27,7 +27,7 @@ The returned object has the following attribues:
 
 - __name__: the name of the interval
 - __quality__: the quality of the interval as String (only one letter)
-- __direction__: the direction of the interval: "" (up) or "-" (down)
+- __direction__: the direction of the interval: 1 or -1
 - __number__: the number of the interval (always positive)
 - __octaves__: number of octaves
 - __semitones___: number of semitones. Can be positive or negative.

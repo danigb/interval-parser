@@ -21,7 +21,7 @@ function parseInterval(interval) {
     var m = INTERVAL.exec(interval.trim());
     if(m) {
       obj = prepare({name: interval, quality: m[1],
-        direction: m[2], number: +m[3]});
+        direction: m[2], number: m[3]});
     }
   }
   return validate(interval, obj);
@@ -43,10 +43,13 @@ function isIntervalObj(interval) {
 }
 
 function prepare(i) {
+  i.number = +i.number;
+  i.direction = i.direction === '' ? 1 : -1;
   i.octaves = i.octaves || octaves(i);
   i.simple = i.simple || simpleNumber(i);
   i.type = i.type || type(i);
   i.semitones = i.semitones || semitones(i);
+  if(/A1|d1|d2/.test(i.name)) i.direction = -1;
   return i;
 }
 
@@ -76,8 +79,7 @@ function semitones(i) {
   var semi = SEMITONES["d" + i.simple];
   var extra = EXTRA[i.type][i.quality];
   var oct = i.octaves * 12;
-  var dir = i.direction === '-1' ? -1 : 1;
-  return dir * (semi + extra + oct);
+  return i.direction * (semi + extra + oct);
 }
 
 
