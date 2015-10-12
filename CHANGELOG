@@ -1,3 +1,6 @@
+[MASTER]
+- Complete rewrite (now parses to an array)
+
 [0.7.0]
 - Direction is now 1 or -1
 - Some direction edge cases

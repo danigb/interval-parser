@@ -1,24 +1,21 @@
 {
   "name": "interval-parser",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Musical interval parser",
   "main": "index.js",
   "scripts": {
-    "test": "vows test/*.js",
-    "start": "webpack index.js dist/interval-parser.min.js --optimize-minimize"
+    "test": "vows --spec test/*.js",
+    "docs": "docme README.md"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/danigb/interval-parser.git"
   },
   "keywords": [
-    "music",
     "interval",
-    "note",
-    "pitch",
-    "score",
-    "teoria",
-    "solfege"
+    "music",
+    "theory",
+    "parser"
   ],
   "author": "danigb <danigb@gmail.com>",
   "license": "MIT",
@@ -27,9 +24,6 @@
   },
   "homepage": "https://github.com/danigb/interval-parser#readme",
   "devDependencies": {
-    "node-libs-browser": "^0.5.0",
-    "teoria": "^1.9.0",
-    "vows": "^0.8.1",
-    "webpack": "^1.9.7"
+    "vows": "^0.8.1"
   }
 }
