@@ -18,7 +18,6 @@ var TYPES = 'PMMPPMM'
  * - As interval (num + quality): `'1P' '3M' '5P' '13A'` are valid intervals
  * - As scale degree (alterations + num): `'b2' '#4' 'b9'` are valid intervals
  *
- * @name parse
  * @param {String} str - the interval string
  * @return {Array} the array pitch representation
  *
@@ -64,9 +63,11 @@ function parse (str) {
 /**
  * Get the interval (string) from an interval array
  *
- * @name str
  * @param {Array} interval - the interval array
  * @return {String} the interval string
+ *
+ * @example
+ * interval.str([1, 0, 0]) // => '2M'
  */
 function str (i) {
   var t = TYPES[Math.abs(i[0]) % 7]
