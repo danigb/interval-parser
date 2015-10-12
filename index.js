@@ -12,23 +12,23 @@ var ALTER = {
 var TYPES = 'PMMPPMM'
 
 /**
- * Get array interval representation from an interval string
+ * Parses an interval string and returns [a-pitch](https://github.com/danigb/a-pitch) array
  *
  * The interval string can be in two different formats:
+ *
  * - As interval (num + quality): `'1P' '3M' '5P' '13A'` are valid intervals
  * - As scale degree (alterations + num): `'b2' '#4' 'b9'` are valid intervals
  *
  * @param {String} str - the interval string
- * @return {Array} the array pitch representation
- *
- * @return {Array} an array in the form [step, alt, oct]
+ * @return {Array} the a-pitch representation
  *
  * @example
- * parse('1P') // => [0, 0, 0]
- * parse('2m') // => [0, -1, 0]
- * parse('1') // same as parse('1P')
- * parse('5b') // same as parse('5d')
- * parse('2b') // same as parse('2m')
+ * var interval = require('interval-parser')
+ * interval.parse('1P') // => [0, 0, 0]
+ * interval.parse('2m') // => [0, -1, 0]
+ * interval.parse('1') // same as interval.parse('1P')
+ * interval.parse('5b') // same as interval.parse('5d')
+ * interval.parse('2b') // same as interval.parse('2m')
  */
 function parse (str) {
   var m = INTERVAL.exec(str)
@@ -61,15 +61,16 @@ function parse (str) {
 }
 
 /**
- * Get the interval (string) from an interval array
+ * Convert from an [a-pitch](https://github.com/danigb/a-pitch) to an interval string
  *
- * @param {Array} interval - the interval array
+ * @param {Array} interval - the interval [a-pitch](https://github.com/danigb/a-pitch) array
  * @return {String} the interval string
  *
  * @example
- * interval.str([1, 0, 0]) // => '2M'
+ * var interval = require('interval-parser')
+ * interval.stringify([1, 0, 0]) // => '2M'
  */
-function str (i) {
+function stringify (i) {
   var t = TYPES[Math.abs(i[0]) % 7]
   var n = number(i)
   var alt = i[1]
@@ -91,4 +92,12 @@ function number (i) {
   return dir * (simple + 7 * oct)
 }
 
-module.exports = { parse: parse, str: str }
+function interval (source) {
+  if (typeof source === 'string') return parse(source)
+  else if (Array.isArray(source)) return stringify(source)
+  else return null
+}
+interval.parse = parse
+interval.stringify = stringify
+
+module.exports = interval

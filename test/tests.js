@@ -3,11 +3,11 @@ var assert = require('assert')
 var interval = require('../')
 
 function intervals (list) {
-  return list.split(' ').map(interval.parse).map(interval.str).join(' ')
+  return list.split(' ').map(interval).map(interval).join(' ')
 }
 
 vows.describe('interval-parser').addBatch({
-  'interval.parse': {
+  'parse': {
     'parse ascending intervals': function () {
       assert.deepEqual(interval.parse('1P'), [0, 0, 0])
       assert.deepEqual(interval.parse('5P'), [4, 0, 0])
@@ -38,23 +38,23 @@ vows.describe('interval-parser').addBatch({
       assert.equal(interval.parse('1M'), null)
     }
   },
-  'interval.str': {
+  'interval.stringify': {
     'edge cases': function () {
-      assert.equal(interval.str([1, -1, 0]), '2m')
-      assert.equal(interval.str([1, -1, 1]), '9m')
-      assert.equal(interval.str([6, 0, 0]), '7M')
-      assert.equal(interval.str([6, 0, -1]), '-2m')
-      assert.equal(interval.str([0, -1, -1]), '-8A')
-      assert.equal(interval.str([2, -1, -1]), '-6M')
-      assert.equal(interval.str([0, 1, -1]), '-8d')
-      assert.equal(interval.str([0, -1, -4]), '-29A')
+      assert.equal(interval.stringify([1, -1, 0]), '2m')
+      assert.equal(interval.stringify([1, -1, 1]), '9m')
+      assert.equal(interval.stringify([6, 0, 0]), '7M')
+      assert.equal(interval.stringify([6, 0, -1]), '-2m')
+      assert.equal(interval.stringify([0, -1, -1]), '-8A')
+      assert.equal(interval.stringify([2, -1, -1]), '-6M')
+      assert.equal(interval.stringify([0, 1, -1]), '-8d')
+      assert.equal(interval.stringify([0, -1, -4]), '-29A')
     },
     'without octaves': function () {
-      assert.equal(interval.str([1, -1, null]), '2m')
-      assert.equal(interval.str([6, 1, null]), '7A')
-      assert.equal(interval.str([7, 1, null]), '1A')
-      assert.equal(interval.str([9, -1, null]), '3m')
-      assert.equal(interval.str([3, -1, null]), '4d')
+      assert.equal(interval.stringify([1, -1, null]), '2m')
+      assert.equal(interval.stringify([6, 1, null]), '7A')
+      assert.equal(interval.stringify([7, 1, null]), '1A')
+      assert.equal(interval.stringify([9, -1, null]), '3m')
+      assert.equal(interval.stringify([3, -1, null]), '4d')
     },
     'intervals': function () {
       assert.equal(intervals('1P 2M 3M 4P 5P 6M 7M'), '1P 2M 3M 4P 5P 6M 7M')
@@ -69,5 +69,4 @@ vows.describe('interval-parser').addBatch({
       assert.equal(intervals('8b 9b 10b 11b 12b 13b 14b'), '8d 9m 10m 11d 12d 13m 14m')
     }
   }
-
 }).export(module)

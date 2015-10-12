@@ -1,5 +1,9 @@
 [MASTER]
 
+[0.9.0]
+- Rename interval.str to interval.stringify
+- Add interval() facade
+
 [0.8.0]
 - Complete rewrite (now parses to a-pitch structure)
 

@@ -1,6 +1,6 @@
 {
   "name": "interval-parser",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Musical interval parser",
   "main": "index.js",
   "scripts": {

@@ -9,7 +9,7 @@ Minimal and fast music interval parser for javascript. Convert from interval str
 ```js
 var interval = require('interval-parser');
 interval.parse('4P') // => [3, 0, 0]
-interval.str([3, 0, 0]) // => '4P'
+interval.stringify([3, 0, 0]) // => '4P'
 ```
 
 #### Interval string format
@@ -45,10 +45,12 @@ In the excellent [teoria](https://github.com/saebekassebil/teoria/) library, the
 </dt>
 <dd>
 <div class="description">
-<p>Get array interval representation from an interval string</p>
-<p>The interval string can be in two different formats:
-- As interval (num + quality): <code>'1P' '3M' '5P' '13A'</code> are valid intervals
-- As scale degree (alterations + num): <code>'b2' '#4' 'b9'</code> are valid intervals</p>
+<p>Parses an interval string and returns <a href="https://github.com/danigb/a-pitch">a-pitch</a> array</p>
+<p>The interval string can be in two different formats:</p>
+<ul>
+<li>As interval (num + quality): <code>'1P' '3M' '5P' '13A'</code> are valid intervals</li>
+<li>As scale degree (alterations + num): <code>'b2' '#4' 'b9'</code> are valid intervals</li>
+</ul>
 </div>
 <h5>Parameters:</h5>
 <table class="params">
@@ -80,10 +82,8 @@ In the excellent [teoria](https://github.com/saebekassebil/teoria/) library, the
 </ul></dd>
 </dl>
 <h5>Returns:</h5>
-<ul>
-<li>
 <div class="param-desc">
-<p>the array pitch representation</p>
+<p>the a-pitch representation</p>
 </div>
 <dl>
 <dt>
@@ -93,34 +93,20 @@ Type
 <span class="param-type">Array</span>
 </dd>
 </dl>
-</li>
-<li>
-<div class="param-desc">
-<p>an array in the form [step, alt, oct]</p>
-</div>
-<dl>
-<dt>
-Type
-</dt>
-<dd>
-<span class="param-type">Array</span>
-</dd>
-</dl>
-</li>
-</ul>
 <h5>Example</h5>
-<pre class="prettyprint"><code>parse('1P') // => [0, 0, 0]
-parse('2m') // => [0, -1, 0]
-parse('1') // same as parse('1P')
-parse('5b') // same as parse('5d')
-parse('2b') // same as parse('2m')</code></pre>
+<pre class="prettyprint"><code>var interval = require('interval-parser')
+interval.parse('1P') // => [0, 0, 0]
+interval.parse('2m') // => [0, -1, 0]
+interval.parse('1') // same as interval.parse('1P')
+interval.parse('5b') // same as interval.parse('5d')
+interval.parse('2b') // same as interval.parse('2m')</code></pre>
 </dd>
 <dt>
-<h4 class="name" id="str"><span class="type-signature"></span>str<span class="signature">(interval)</span><span class="type-signature"> &rarr; {String}</span></h4>
+<h4 class="name" id="stringify"><span class="type-signature"></span>stringify<span class="signature">(interval)</span><span class="type-signature"> &rarr; {String}</span></h4>
 </dt>
 <dd>
 <div class="description">
-<p>Get the interval (string) from an interval array</p>
+<p>Convert from an <a href="https://github.com/danigb/a-pitch">a-pitch</a> to an interval string</p>
 </div>
 <h5>Parameters:</h5>
 <table class="params">
@@ -137,7 +123,7 @@ parse('2b') // same as parse('2m')</code></pre>
 <td class="type">
 <span class="param-type">Array</span>
 </td>
-<td class="description last"><p>the interval array</p></td>
+<td class="description last"><p>the interval <a href="https://github.com/danigb/a-pitch">a-pitch</a> array</p></td>
 </tr>
 </tbody>
 </table>
@@ -147,7 +133,7 @@ parse('2b') // same as parse('2m')</code></pre>
 <li>
 <a href="https://github.com/danigb/interval-parser/blob/master/index.js">index.js</a>
 <span>, </span>
-<a href="https://github.com/danigb/interval-parser/blob/master/index.js#L72">lineno 72</a>
+<a href="https://github.com/danigb/interval-parser/blob/master/index.js#L73">lineno 73</a>
 </li>
 </ul></dd>
 </dl>
@@ -164,7 +150,8 @@ Type
 </dd>
 </dl>
 <h5>Example</h5>
-<pre class="prettyprint"><code>interval.str([1, 0, 0]) // => '2M'</code></pre>
+<pre class="prettyprint"><code>var interval = require('interval-parser')
+interval.stringify([1, 0, 0]) // => '2M'</code></pre>
 </dd>
 </dl>
 </article>
