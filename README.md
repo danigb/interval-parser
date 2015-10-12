@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/danigb/interval-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/interval-parser)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-Minimal and fast music interval parser for javascript. Can convert from string to interval array and vice versa:
+Minimal and fast music interval parser for javascript. Convert from interval string to [a-pitch](https://github.com/danigb/a-pitch) and back.
 
 ```js
 var interval = require('interval-parser');
@@ -12,7 +12,7 @@ interval.parse('4P') // => [3, 0, 0]
 interval.str([3, 0, 0]) // => '4P'
 ```
 
-#### Interval string
+#### Interval string format
 
 The interval string can be in two different formats:
 
@@ -25,23 +25,6 @@ In the excellent [teoria](https://github.com/saebekassebil/teoria/) library, the
 
 - There's no easy way to distinguish notes from intervals.
 - Looking at the string `'A2'` there's no way to know if its an interval or a pitch
-
-#### Interval array
-
-The interval array is an array of 3 integers with the form `[num, alteration, octave]` where:
-
-- __num__: is a positive integer between 0 to 6 to represents simple interval numbers
-- __alteration__: an integer with the interval alteration (0 means natural interval)
-- __octave__: (Optional) the number of octaves the interval spawns. It can be negative to represent descendent intervals.
-
-The interval array is equivalent to the pitch array in [interval-parser](https://github.com/danigb/interval-parser).
-
-Note that since num is always positive, descending intervals are always stored inverted (with the octave negative):
-
-```js
-interval.parse('-2M') // => [6, -1, -1]
-interval.parse('7m') // => [6, -1, 0]
-```
 
 ## API
 
