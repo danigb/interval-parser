@@ -1,5 +1,9 @@
 # interval-parser
 
+[![Build Status](https://travis-ci.org/danigb/interval-parser.svg?branch=master)](https://travis-ci.org/danigb/interval-parser)
+[![Code Climate](https://codeclimate.com/github/danigb/interval-parser/badges/gpa.svg)](https://codeclimate.com/github/danigb/interval-parser)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+
 Minimal and fast music interval parser for javascript. Can convert from string to interval array or from interval array to string:
 
 ```js
@@ -30,7 +34,7 @@ The interval array is an array of 3 integers with the form `[num, alteration, oc
 - __alteration__: an integer with the interval alteration (0 means natural interval)
 - __octave__: (Optional) the number of octaves the interval spawns. It can be negative to represent descendent intervals.
 
-The interval array is equivalent to the pitch array in [pitch-parser](https://github.com/danigb/pitch-parser).
+The interval array is equivalent to the pitch array in [interval-parser](https://github.com/danigb/interval-parser).
 
 Note that since num is always positive, descending intervals are always stored inverted (with the octave negative):
 
