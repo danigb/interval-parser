@@ -1,5 +1,9 @@
 [MASTER]
 
+[0.10.0]
+- Rename interval.stringify to interval.build
+- Fixed a bug where build(null) returns null (instead of error)
+
 [0.9.1]
 - Fixed a bug where descending invervals degrees was not correcly parsed
 

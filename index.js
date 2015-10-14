@@ -68,9 +68,10 @@ function parse (str) {
  *
  * @example
  * var interval = require('interval-parser')
- * interval.stringify([1, 0, 0]) // => '2M'
+ * interval.build([1, 0, 0]) // => '2M'
  */
-function stringify (i) {
+function build (i) {
+  if (!i || !Array.isArray(i)) return null
   var t = TYPES[Math.abs(i[0]) % 7]
   var n = number(i)
   var alt = i[1]
@@ -94,10 +95,10 @@ function number (i) {
 
 function interval (source) {
   if (typeof source === 'string') return parse(source)
-  else if (Array.isArray(source)) return stringify(source)
+  else if (Array.isArray(source)) return build(source)
   else return null
 }
 interval.parse = parse
-interval.stringify = stringify
+interval.build = build
 
 module.exports = interval
