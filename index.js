@@ -38,13 +38,13 @@ function parse (str) {
 
   var simple = num % 7
   var oct = dir * Math.floor(num / 7)
-  var alt
+  var type = TYPES[simple]
 
+  var alt
   if (m[3] === '') alt = 0
   else if (m[3][0] === '#') alt = m[3].length
   else if (m[3][0] === 'b') alt = -m[3].length
   else {
-    var type = TYPES[simple]
     alt = QALT[type][m[3]]
     if (typeof alt === 'undefined') return null
   }

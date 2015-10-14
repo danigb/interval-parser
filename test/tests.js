@@ -20,6 +20,7 @@ vows.describe('interval-parser').addBatch({
       assert.deepEqual(interval.parse('11dddd'), [3, -4, 1])
     },
     'parse descending intervals': function () {
+      assert.deepEqual(interval.parse('-1P'), [0, 0, 0])
       assert.deepEqual(interval.parse('-2M'), [6, -1, -1])
       assert.deepEqual(interval.parse('-9M'), [6, -1, -2])
       assert.deepEqual(interval.parse('-1P'), [0, 0, 0])
@@ -28,11 +29,10 @@ vows.describe('interval-parser').addBatch({
       assert.deepEqual(interval.parse('-8A'), [0, -1, -1])
     },
     'parse degree': function () {
-      assert.deepEqual(interval.parse('1'), [0, 0, 0])
-      assert.deepEqual(interval.parse('5'), [4, 0, 0])
-      assert.deepEqual(interval.parse('2b'), [1, -1, 0])
-      assert.deepEqual(interval.parse('4#'), [3, 1, 0])
-      assert.deepEqual(interval.parse('9b'), [1, -1, 1])
+      assert.deepEqual('1 2 3 4 5 6 7'.split(' ').map(interval.parse),
+        '1P 2M 3M 4P 5P 6M 7M'.split(' ').map(interval.parse))
+      assert.deepEqual('-1 -2 -3 -4 -5 -6 -7'.split(' ').map(interval.parse),
+        '-1P -2M -3M -4P -5P -6M -7M'.split(' ').map(interval.parse))
     },
     'malformed': function () {
       assert.equal(interval.parse('1M'), null)
