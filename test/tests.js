@@ -9,24 +9,24 @@ function intervals (list) {
 vows.describe('interval-parser').addBatch({
   'parse': {
     'parse ascending intervals': function () {
-      assert.deepEqual(interval.parse('1P'), [0, 0, 0])
-      assert.deepEqual(interval.parse('5P'), [4, 0, 0])
-      assert.deepEqual(interval.parse('8P'), [0, 0, 1])
-      assert.deepEqual(interval.parse('2M'), [1, 0, 0])
-      assert.deepEqual(interval.parse('7m'), [6, -1, 0])
-      assert.deepEqual(interval.parse('5A'), [4, 1, 0])
-      assert.deepEqual(interval.parse('9m'), [1, -1, 1])
-      assert.deepEqual(interval.parse('9AAAA'), [1, 4, 1])
-      assert.deepEqual(interval.parse('11dddd'), [3, -4, 1])
+      assert.deepEqual(interval('1P'), [0, 0, 0])
+      assert.deepEqual(interval('5P'), [4, 0, 0])
+      assert.deepEqual(interval('8P'), [0, 0, 1])
+      assert.deepEqual(interval('2M'), [1, 0, 0])
+      assert.deepEqual(interval('7m'), [6, -1, 0])
+      assert.deepEqual(interval('5A'), [4, 1, 0])
+      assert.deepEqual(interval('9m'), [1, -1, 1])
+      assert.deepEqual(interval('9AAAA'), [1, 4, 1])
+      assert.deepEqual(interval('11dddd'), [3, -4, 1])
     },
     'parse descending intervals': function () {
-      assert.deepEqual(interval.parse('-1P'), [0, 0, 0])
-      assert.deepEqual(interval.parse('-2M'), [6, -1, -1])
-      assert.deepEqual(interval.parse('-9M'), [6, -1, -2])
-      assert.deepEqual(interval.parse('-1P'), [0, 0, 0])
-      assert.deepEqual(interval.parse('-8P'), [0, 0, -1])
-      assert.deepEqual(interval.parse('-2A'), [6, -2, -1])
-      assert.deepEqual(interval.parse('-8A'), [0, -1, -1])
+      assert.deepEqual(interval('-1P'), [0, 0, 0])
+      assert.deepEqual(interval('-2M'), [6, -1, -1])
+      assert.deepEqual(interval('-9M'), [6, -1, -2])
+      assert.deepEqual(interval('-1P'), [0, 0, 0])
+      assert.deepEqual(interval('-8P'), [0, 0, -1])
+      assert.deepEqual(interval('-2A'), [6, -2, -1])
+      assert.deepEqual(interval('-8A'), [0, -1, -1])
     },
     'parse degree': function () {
       assert.deepEqual('1 2 3 4 5 6 7'.split(' ').map(interval.parse),
@@ -35,27 +35,27 @@ vows.describe('interval-parser').addBatch({
         '-1P -2M -3M -4P -5P -6M -7M'.split(' ').map(interval.parse))
     },
     'malformed': function () {
-      assert.equal(interval.parse('1M'), null)
-      assert.equal(interval.parse(null), null)
+      assert.equal(interval('1M'), null)
+      assert.equal(interval(null), null)
     }
   },
   'build': {
     'edge cases': function () {
-      assert.equal(interval.build([1, -1, 0]), '2m')
-      assert.equal(interval.build([1, -1, 1]), '9m')
-      assert.equal(interval.build([6, 0, 0]), '7M')
-      assert.equal(interval.build([6, 0, -1]), '-2m')
-      assert.equal(interval.build([0, -1, -1]), '-8A')
-      assert.equal(interval.build([2, -1, -1]), '-6M')
-      assert.equal(interval.build([0, 1, -1]), '-8d')
-      assert.equal(interval.build([0, -1, -4]), '-29A')
+      assert.equal(interval([1, -1, 0]), '2m')
+      assert.equal(interval([1, -1, 1]), '9m')
+      assert.equal(interval([6, 0, 0]), '7M')
+      assert.equal(interval([6, 0, -1]), '-2m')
+      assert.equal(interval([0, -1, -1]), '-8A')
+      assert.equal(interval([2, -1, -1]), '-6M')
+      assert.equal(interval([0, 1, -1]), '-8d')
+      assert.equal(interval([0, -1, -4]), '-29A')
     },
     'without octaves': function () {
-      assert.equal(interval.build([1, -1, null]), '2m')
-      assert.equal(interval.build([6, 1, null]), '7A')
-      assert.equal(interval.build([7, 1, null]), '1A')
-      assert.equal(interval.build([9, -1, null]), '3m')
-      assert.equal(interval.build([3, -1, null]), '4d')
+      assert.equal(interval([1, -1, null]), '2m')
+      assert.equal(interval([6, 1, null]), '7A')
+      assert.equal(interval([7, 1, null]), '1A')
+      assert.equal(interval([9, -1, null]), '3m')
+      assert.equal(interval([3, -1, null]), '4d')
     },
     'intervals': function () {
       assert.equal(intervals('1P 2M 3M 4P 5P 6M 7M'), '1P 2M 3M 4P 5P 6M 7M')
@@ -70,8 +70,8 @@ vows.describe('interval-parser').addBatch({
       assert.equal(intervals('8b 9b 10b 11b 12b 13b 14b'), '8d 9m 10m 11d 12d 13m 14m')
     },
     'malformed': function () {
-      assert.equal(interval.build(null))
-      assert.equal(interval.build('blah'))
+      assert.equal(interval(null))
+      assert.equal(interval('blah'))
     }
   }
 }).export(module)

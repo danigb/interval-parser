@@ -1,6 +1,6 @@
 {
   "name": "interval-parser",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Musical interval parser",
   "main": "index.js",
   "scripts": {
@@ -25,5 +25,8 @@
   "homepage": "https://github.com/danigb/interval-parser#readme",
   "devDependencies": {
     "vows": "^0.8.1"
+  },
+  "dependencies": {
+    "a-pitch": "^0.1.0"
   }
 }

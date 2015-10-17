@@ -1,5 +1,40 @@
 'use strict'
 
+var notation = require('a-pitch/notation')
+
+/**
+ * Converts between interval strings and [array notation](https://github.com/danigb/a-pitch)
+ *
+ * The interval string can be in two different formats:
+ *
+ * - As interval (num + quality): `'1P' '3M' '5P' '13A'` are valid intervals
+ * - As scale degree (alterations + num): `'b2' '#4' 'b9'` are valid intervals
+ *
+ * The array notation is an array in the form `[num, alter, oct]`. See [a-pitch](https://github.com/danigb/a-pitch)
+ * for more infor about array notation.
+ *
+ * @param {String|Array} interval - the interval in either string or array notation
+ * @return {Array|String} the interval (as string if was array, as array if was string).
+ * null if not a valid array
+ *
+ * @example
+ * var interval = require('interval-parser')
+ * interval('3M') // => [2, 0, 1]
+ * interval([2, 0, 1]) // => '3M'
+ *
+ * @example // parse strings
+ * interval('1P') // => [0, 0, 0]
+ * interval('2m') // => [0, -1, 0]
+ * interval('1') // same as interval('1P')
+ * interval('5b') // same as interval('5d')
+ * interval('2b') // same as interval('2m')
+ *
+ * @example // build strings
+ * interval.build([1, 0, 0]) // => '2M'
+ * interval.build([1, 0, 1]) // => '9M'
+ */
+module.exports = notation(parse, build)
+
 var INTERVAL = /^([-+]?)(\d+)(d{1,4}|m|M|P|A{1,4}|b{1,4}|#{1,4}|)$/
 var QALT = {
   P: { dddd: -4, ddd: -3, dd: -2, d: -1, P: 0, A: 1, AA: 2, AAA: 3, AAAA: 4 },
@@ -60,7 +95,7 @@ function parse (str) {
   return [simple, alt, oct]
 }
 
-/**
+/*
  * Convert from an [a-pitch](https://github.com/danigb/a-pitch) to an interval string
  *
  * @param {Array} interval - the interval [a-pitch](https://github.com/danigb/a-pitch) array
@@ -92,13 +127,3 @@ function number (i) {
   }
   return dir * (simple + 7 * oct)
 }
-
-function interval (source) {
-  if (typeof source === 'string') return parse(source)
-  else if (Array.isArray(source)) return build(source)
-  else return null
-}
-interval.parse = parse
-interval.build = build
-
-module.exports = interval

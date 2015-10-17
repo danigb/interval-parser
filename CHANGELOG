@@ -1,5 +1,8 @@
 [MASTER]
 
+[0.11.0]
+- Uses a-pitch utility function that memoizes values
+
 [0.10.0]
 - Rename interval.stringify to interval.build
 - Fixed a bug where build(null) returns null (instead of error)
