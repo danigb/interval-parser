@@ -1,11 +1,11 @@
 {
   "name": "interval-parser",
-  "version": "0.11.0",
-  "description": "Musical interval parser",
+  "version": "1.0.0",
+  "description": "Parse musical intervals in shorthand notation",
   "main": "index.js",
   "scripts": {
-    "test": "vows --spec test/*.js",
-    "docs": "docme README.md"
+    "test": "tape test.js | faucet",
+    "prepublish": "npm test"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,6 @@
   "keywords": [
     "interval",
     "music",
-    "theory",
     "parser"
   ],
   "author": "danigb <danigb@gmail.com>",
@@ -24,9 +23,7 @@
   },
   "homepage": "https://github.com/danigb/interval-parser#readme",
   "devDependencies": {
-    "vows": "^0.8.1"
-  },
-  "dependencies": {
-    "a-pitch": "^0.1.0"
+    "faucet": "0.0.1",
+    "tape": "^4.5.1"
   }
 }
