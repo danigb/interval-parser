@@ -10,13 +10,6 @@ var SIZES = [0, 2, 4, 5, 7, 9, 11]
 var TYPES = 'PMMPPMM'
 
 /**
- * Return a regex for matching intervals in shorthand notation or inverse
- * shorthand notation.
- * @return {Regex}
- */
-function regex () { return IVL_REGEX }
-
-/**
  * Parse a string with an interval in [shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
  * and returns an object with interval properties
  *
@@ -48,40 +41,22 @@ function parse (str) {
   var step = (i.num - 1) % 7
   i.simple = step + 1
   i.type = TYPES[step]
-  i.alt = parseQ(i.type, i.q)
+  i.alt = alt(i.type, i.q)
   i.oct = Math.floor((i.num - 1) / 7)
   i.semitones = i.dir * (SIZES[step] + i.alt + 12 * i.oct)
   return i
 }
 
-/**
- * Get an alteration number from an interval quality string.
- *
- * @param {Integer|String} num - the interval number or a string representing
- * the interval type ('P' or 'M')
- * @param {String} quality - the quality string
- * @return {Integer} the interval alteration
- * @example
- * parseQ(1, 'm') // => -1
- * parseQ(2, 'm') // => null (2 step interval can't be minor)
- * parseQ(4, 'P') // => 0
- * parseQ(6, 'P') // => null
- * // it works with interval types ('M' or 'P')
- * parseQ('M', 'm') // => -1 (for majorables, 'm' is -1)
- * parseQ('P', 'A') // => 1 (for perfectables, 'A' means 1)
- * parseQ('P', 'M') // => null (perfectable intervals can't be major)
- */
-function parseQ (num, q) {
-  var t = typeof num === 'number' ? TYPES[(num - 1) % 12] : num
-  if (q === 'M' && t === 'M') return 0
-  if (q === 'P' && t === 'P') return 0
-  if (q === 'm' && t === 'M') return -1
-  if (/^A+$/.test(q)) return q.length
-  if (/^d+$/.test(q)) return t === 'P' ? -q.length : -q.length - 1
-  return null
+function alt (t, q) {
+  return (q === 'M' && t === 'M') ? 0
+    : (q === 'P' && t === 'P') ? 0
+    : (q === 'm' && t === 'M') ? -1
+    : (/^A+$/.test(q)) ? q.length
+    : (/^d+$/.test(q)) ? (t === 'P' ? -q.length : -q.length - 1)
+    : null
 }
 
-var parser = { regex: regex, parse: parse, parseQ: parseQ }
+var parser = { parse: parse }
 var FNS = ['num', 'q', 'dir', 'simple', 'type', 'alt', 'oct', 'semitones']
 FNS.forEach(function (name) {
   parser[name] = function (src) {

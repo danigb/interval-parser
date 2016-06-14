@@ -13,12 +13,12 @@ test('parse', function (t) {
   t.end()
 })
 
-test('parseQ', function (t) {
-  t.equal(parser.parseQ(2, 'd'), -2)
-  var maj = function (a) { return parser.parseQ('M', a) }
+test('alt', function (t) {
+  t.equal(parser.alt('2d'), -2)
+  var maj = function (a) { return parser.alt('2' + a) }
   t.deepEqual(map(maj, 'dddd ddd dd d m M A AA AAA AAAA'),
     [ -5, -4, -3, -2, -1, 0, 1, 2, 3, 4 ])
-  var per = function (a) { return parser.parseQ('P', a) }
+  var per = function (a) { return parser.alt('1' + a) }
   t.deepEqual(map(per, 'dddd ddd dd d P A AA AAA AAAA'),
     [ -4, -3, -2, -1, 0, 1, 2, 3, 4 ])
   t.end()
